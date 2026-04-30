@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-04-30T20:44:04Z_
+_generated: 2026-04-30T20:50:26Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
