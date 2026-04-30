@@ -188,6 +188,79 @@ the user is running an old Python.
 If you want async + connection pooling for thousands of markets, fork
 freely — the API surfaces don't change.
 
+## FAQ
+
+### Does this actually place trades?
+
+No. Both scripts are read-only — they hit Polymarket's gamma + CLOB endpoints
+and Kalshi's public v2 API, compute edges, print a ranked table, and exit.
+Wiring up execution is your problem, and I think you should think about it
+twice before doing it. The caveats above are the reasons.
+
+### Why poll instead of using Polymarket's WebSocket?
+
+The scanner is a once-a-day cron tool, not a market-making bot. Polling 200
+binaries via REST takes ~30 seconds with concurrency=12 and gives a clean
+snapshot. WebSocket subscription is the right tool for a strategy that
+reacts in milliseconds, not for "tell me at 7am whether any arb exists."
+If you're doing the latter, fork and rewrite — the data shapes are the
+same.
+
+### What about Manifold / PredictIt / Limitless / Smarkets?
+
+Out of scope for this repo. Manifold is mostly play money. PredictIt has an
+$850/contract ceiling and a 5% withdrawal fee that eats most cross-venue
+spreads. Limitless is on Polygon and might be a future addition; the
+scanner architecture (gamma-style market list + per-token CLOB-style
+orderbook) maps cleanly. Smarkets is UK-only and harder to access for US
+users. PRs welcome.
+
+### How often do real field arbs actually appear?
+
+On the night I built this, the scanner found three real ones (after the
+augmented filter): Trump 2026 gold-card count +9.5%, OpenAI IPO market cap
++3.2%, Harvey Weinstein sentencing +1.8%. Per-leg orderbook depth ranged
+from 6 to 297 shares — meaning two of the three are uneconomic to fill
+once you account for slippage. Run the scanner for a week before drawing
+conclusions about frequency. I plan to publish a tracking dataset once
+I have enough samples; if you fork and run it daily, share your data.
+
+### What does `negRiskAugmented` actually mean under the hood?
+
+Polymarket's NegRisk markets are mutually-exclusive (exactly one outcome
+resolves YES). When `negRiskAugmented: True`, the protocol can mint an
+implicit "Other" position automatically if the resolution doesn't match
+any listed candidate — the named candidate markets all settle NO and the
+"Other" claim accrues to the protocol's auto-generated outcome (you
+can't trade it pre-resolution). Result: sum of YES asks across listed
+candidates is by construction less than 1 even when the market is fairly
+priced, which makes augmented events look like guaranteed arbitrages
+when they aren't. The scanner skips these.
+
+### Is this safe / against ToS?
+
+The scanner is read-only against public endpoints — same calls polymarket.com
+and kalshi.com make to render their own market pages. No auth needed, no
+rate-limit issues at this volume, no ToS concern. **Trading from
+restricted regions** (US Polymarket, certain Kalshi markets) is your
+problem and is outside this repo's scope.
+
+### Can I use this for a different kind of arb (sports books, DEXs, etc.)?
+
+The Polymarket / Kalshi data shapes are specific to those venues, but
+the math (`compute_cross_venue` pairing logic, `_align_poly_to_kalshi`
+outcome alignment, the augmented filter) generalizes. Fork and swap the
+fetch functions; happy to review a PR that adds a new venue cleanly.
+
+### Why Python and not Go/Rust?
+
+Honestly, this is a script that runs once or twice a day, finishes in
+under a minute, and compiles a ranked list a human reads. Python's
+standard library + curl is the lowest-friction path to "clone, run,
+forget." If someone forks this into a Go binary that subscribes to
+Polymarket WebSocket and reacts in <100ms, that's a different (more
+useful for a real trader) tool — go do it.
+
 ## License
 
 MIT. See `LICENSE`.
