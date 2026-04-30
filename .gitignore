@@ -21,3 +21,4 @@ venv/
 .env.local
 *.key
 *.pem
+LAUNCH.md
