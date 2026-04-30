@@ -1,0 +1,23 @@
+# reports — keep the dir but don't commit individual outputs
+reports/*
+!reports/.gitkeep
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.python-version
+
+# editors
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# environment
+.env
+.env.local
+*.key
+*.pem
