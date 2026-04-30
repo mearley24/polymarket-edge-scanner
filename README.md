@@ -96,7 +96,7 @@ out to `curl` for HTTP because every Python HTTP library on the planet has
 slightly different timeout semantics and I got tired of debugging them.
 
 ```bash
-git clone https://github.com/<your-fork>/polymarket-edge-scanner.git
+git clone https://github.com/mearley24/polymarket-edge-scanner.git
 cd polymarket-edge-scanner
 mkdir -p reports
 ```
