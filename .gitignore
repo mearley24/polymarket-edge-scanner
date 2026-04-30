@@ -1,6 +1,12 @@
 # reports — keep the dir but don't commit individual outputs
 reports/*
 !reports/.gitkeep
+# But DO commit the daily-updated "latest" snapshots and the running log,
+# which are produced by .github/workflows/daily-scan.yml and serve as
+# proof-of-life for the README.
+!reports/latest-edge-hunt.md
+!reports/latest-cross-venue.md
+!reports/SCAN_LOG.md
 
 # python
 __pycache__/

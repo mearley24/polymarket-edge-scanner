@@ -1,0 +1,85 @@
+name: daily scan
+
+# Runs both edge scanners once a day, overwrites the "latest" snapshot
+# files in `reports/`, and appends a one-line summary to SCAN_LOG.md.
+# The cron is set to 14:07 UTC (just past 09:00 US Eastern) — well before
+# the Polymarket / Kalshi US morning-trading volume picks up, so the
+# snapshot reflects the overnight market state when the books are
+# typically thinnest and most likely to leak short-lived arbs.
+
+on:
+  schedule:
+    # 14:07 UTC daily — off-zero minute on purpose to avoid the
+    # "every cron in the world fires at :00" thundering herd.
+    - cron: '7 14 * * *'
+  # Allow manual runs from the Actions tab — handy when ad-hoc scanning.
+  workflow_dispatch:
+
+permissions:
+  contents: write   # required so the workflow can commit the updated reports back
+
+concurrency:
+  group: daily-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: run edge_hunt
+        id: edge_hunt
+        continue-on-error: true
+        run: |
+          mkdir -p reports
+          python3 edge_hunt.py --output reports/latest-edge-hunt.md \
+            > reports/_edge-hunt.stdout.txt 2>&1
+          tail -40 reports/_edge-hunt.stdout.txt
+
+      - name: run cross_venue_arb_scan
+        id: cross_venue
+        continue-on-error: true
+        run: |
+          python3 cross_venue_arb_scan.py --output reports/latest-cross-venue.md \
+            > reports/_cross-venue.stdout.txt 2>&1
+          tail -40 reports/_cross-venue.stdout.txt
+
+      - name: append SCAN_LOG entry
+        run: |
+          ts=$(date -u +%Y-%m-%dT%H:%MZ)
+          # Best-effort parsing of the report files; default to "?" on failure.
+          binary_count=$(grep -oE 'found: [0-9]+' reports/latest-edge-hunt.md 2>/dev/null | head -1 | awk '{print $2}' || echo "?")
+          field_count=$(grep -oE 'found: [0-9]+' reports/latest-edge-hunt.md 2>/dev/null | tail -1 | awk '{print $2}' || echo "?")
+          cv_matched=$(grep -oE '[0-9]+ matched' reports/latest-cross-venue.md 2>/dev/null | head -1 | awk '{print $1}' || echo "?")
+          cv_actionable=$(grep -oE '[0-9]+ actionable' reports/latest-cross-venue.md 2>/dev/null | head -1 | awk '{print $1}' || echo "?")
+          # Edge_hunt and cross_venue exit codes (0 = success, anything else = scanner saw an issue)
+          eh_status="${{ steps.edge_hunt.outcome }}"
+          cv_status="${{ steps.cross_venue.outcome }}"
+          notes=""
+          [ "$eh_status" != "success" ] && notes="$notes edge_hunt:${eh_status};"
+          [ "$cv_status" != "success" ] && notes="$notes cross_venue:${cv_status};"
+          [ -z "$notes" ] && notes="ok"
+          echo "| $ts | $binary_count | $field_count | $cv_matched | $cv_actionable | $notes |" >> reports/SCAN_LOG.md
+          tail -3 reports/SCAN_LOG.md
+
+      - name: commit + push if reports changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Don't commit the transient stdout dumps
+          rm -f reports/_edge-hunt.stdout.txt reports/_cross-venue.stdout.txt
+          git add reports/latest-edge-hunt.md reports/latest-cross-venue.md reports/SCAN_LOG.md
+          if git diff --cached --quiet; then
+            echo "nothing changed; skipping commit"
+            exit 0
+          fi
+          git commit -m "chore(scan): daily scan — $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin HEAD:main

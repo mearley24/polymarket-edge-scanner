@@ -1,5 +1,12 @@
 # polymarket-edge-scanner
 
+[![daily scan](https://github.com/mearley24/polymarket-edge-scanner/actions/workflows/daily-scan.yml/badge.svg)](https://github.com/mearley24/polymarket-edge-scanner/actions/workflows/daily-scan.yml)
+[![python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![stdlib only](https://img.shields.io/badge/deps-stdlib%20only-brightgreen.svg)](#install)
+
+📊 **Live data:** the latest scan results from [`reports/latest-edge-hunt.md`](reports/latest-edge-hunt.md) and [`reports/latest-cross-venue.md`](reports/latest-cross-venue.md) are auto-updated daily by [GitHub Actions](.github/workflows/daily-scan.yml). The full run log is in [`reports/SCAN_LOG.md`](reports/SCAN_LOG.md).
+
 Two read-only scripts that scan [Polymarket](https://polymarket.com) for the
 three real categories of mathematical edge that exist on a prediction market:
 
