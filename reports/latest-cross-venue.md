@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-05-11T16:41:13Z_
+_generated: 2026-05-12T16:32:25Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-05-11T16:41:13Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.55 | Indiana Fever | yes | $0.6000 | $0.4000 | $1.0160 | -1.60% | Indiana Fever vs. Los Angeles Sparks | Los Angeles A vs Cleveland Winner? |
+| 0.42 | Avalanche | no | $0.6600 | $0.3500 | $1.0267 | -2.67% | Wild vs. Avalanche | Game 5: Minnesota at Colorado Winner? |
 
 ## Verdict
 No actionable cross-venue arb at the requested minimum edge.
