@@ -1,5 +1,5 @@
 # Polymarket same-venue edge hunt
-_generated: 2026-05-16T15:08:36+00:00_
+_generated: 2026-05-17T15:09:28+00:00_
 
 Active markets scanned: 100 across 9 events.
 Min edge: **0.3%**, min orderbook depth: **5.0 shares** per leg.
