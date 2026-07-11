@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-07-10T16:30:17Z_
+_generated: 2026-07-11T15:06:46Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-07-10T16:30:17Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.43 | Norway | yes | $0.3550 | $0.4900 | $0.8570 | +14.30% | Norway vs. England: Team to Advance | Cleveland vs Miami Winner? |
+| 0.43 | Norway | yes | $0.3600 | $0.4500 | $0.8217 | +17.83% | Norway vs. England: Team to Advance | Cleveland vs Miami Winner? |
 
 ## Verdict
 1 matched pair(s) with after-fee edge ≥ 0.5%.
