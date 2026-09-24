@@ -1,16 +1,18 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-09-23T18:21:27Z_
+_generated: 2026-09-24T18:23:07Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
 - min edge pct:   0.5
 - assumed fees:   poly=2.0%  kalshi=1.0%
 
-## Results — 0 actionable / 1 matched
+## Results — 1 actionable / 2 matched
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.55 | Ole Miss | yes | $0.4200 | $0.5900 | $1.0243 | -2.43% | Ole Miss vs. Florida | Florida wins |
+| 0.51 | Texas A&M | no | $0.2500 | $0.4600 | $0.7196 | +28.04% | Texas A&M vs. LSU | Texas wins |
+| 0.41 | Patriots | yes | $0.4100 | $0.6200 | $1.0444 | -4.44% | Patriots vs. Jaguars | Calgary wins |
 
 ## Verdict
-No actionable cross-venue arb at the requested minimum edge.
+1 matched pair(s) with after-fee edge ≥ 0.5%.
+Manual approval required before executing any leg. Buy the cheap-side leg on each venue simultaneously and verify both fills before considering the position locked.
