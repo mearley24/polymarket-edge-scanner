@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-09-29T19:18:47Z_
+_generated: 2026-09-30T19:07:18Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-09-29T19:18:47Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.51 | Philadelphia Phillies | no | $0.4200 | $0.6000 | $1.0344 | -3.44% | Philadelphia Phillies vs. Atlanta Braves | Philadelphia wins |
+| 0.50 | Boston Red Sox | yes | $0.4500 | $0.6000 | $1.0650 | -6.50% | Boston Red Sox vs. New York Yankees | New York R wins |
 
 ## Verdict
 No actionable cross-venue arb at the requested minimum edge.
