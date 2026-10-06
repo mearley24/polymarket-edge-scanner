@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-10-05T21:26:48Z_
+_generated: 2026-10-06T19:26:44Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-10-05T21:26:48Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.54 | Chicago White Sox | yes | $0.1600 | $0.5200 | $0.6884 | +31.16% | Chicago White Sox vs. Cleveland Guardians | Cleveland wins |
+| 0.37 | Guido Justo | no | $0.3900 | $0.5200 | $0.9230 | +7.70% | Antofagasta: Guido Justo vs Francisco Comesana | Houston wins |
 
 ## Verdict
 1 matched pair(s) with after-fee edge ≥ 0.5%.
