@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-10-18T17:15:41Z_
+_generated: 2026-10-23T18:14:38Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-10-18T17:15:41Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.47 | Cleveland Guardians | yes | $0.4600 | $0.4900 | $0.9641 | +3.59% | Tampa Bay Rays vs. Cleveland Guardians | Tampa Bay wins |
+| 0.52 | Tampa Bay Rays | no | $0.3700 | $0.3600 | $0.7410 | +25.90% | Tampa Bay Rays vs. Milwaukee Brewers | Tampa Bay wins |
 
 ## Verdict
 1 matched pair(s) with after-fee edge ≥ 0.5%.
