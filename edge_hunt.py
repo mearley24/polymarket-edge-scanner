@@ -428,6 +428,30 @@ def main() -> int:
         path.write_text("\n".join(lines) + "\n")
         print(f"\nwrote: {path}")
 
+        # ── Append structured CSV row for trend tracking (issue #2) ──────
+        import csv as _csv
+        csv_path = path.parent / "scan_log.csv"
+        write_header = not csv_path.exists() or csv_path.stat().st_size == 0
+        fieldnames = [
+            "date", "binary_count", "binary_actionable",
+            "field_count", "field_actionable",
+            "field_max_edge_pct", "field_max_depth",
+        ]
+        with open(csv_path, "a", newline="", encoding="utf-8") as fh:
+            writer = _csv.DictWriter(fh, fieldnames=fieldnames)
+            if write_header:
+                writer.writeheader()
+            writer.writerow({
+                "date":               now[:10],
+                "binary_count":       len(binary),
+                "binary_actionable":  len(binary_actionable),
+                "field_count":        len(field),
+                "field_actionable":   len(field_actionable),
+                "field_max_edge_pct": round(field_actionable[0].edge_pct, 4) if field_actionable else 0.0,
+                "field_max_depth":    round(field_actionable[0].min_depth, 2) if field_actionable else 0.0,
+            })
+        print(f"appended: {csv_path}")
+
     return 0
 
 
