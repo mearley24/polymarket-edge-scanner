@@ -1,5 +1,5 @@
 # Cross-venue (Polymarket × Kalshi) arb scan
-_generated: 2026-10-23T18:14:38Z_
+_generated: 2026-11-09T23:22:52Z_
 
 - series scanned: `KXNHLGAME, KXNBAGAME, KXMLBGAME`
 - min similarity: 0.3
@@ -10,7 +10,7 @@ _generated: 2026-10-23T18:14:38Z_
 
 | sim | poly side | kalshi side | poly ask | kalshi ask | total + fees | net edge % | poly question | kalshi title |
 |---|---|---|---|---|---|---|---|---|
-| 0.52 | Tampa Bay Rays | no | $0.3700 | $0.3600 | $0.7410 | +25.90% | Tampa Bay Rays vs. Milwaukee Brewers | Tampa Bay wins |
+| 0.50 | Liam Broady | no | $0.0900 | $0.3300 | $0.4251 | +57.49% | Matsuyama: Billy Harris vs Liam Broady | Tampa Bay wins |
 
 ## Verdict
 1 matched pair(s) with after-fee edge ≥ 0.5%.
